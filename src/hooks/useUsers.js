@@ -13,7 +13,7 @@ const useUsers = () => {
 
   const getUsers = useCallback(async () => {
     try {
-      const { data } = await axios.get(`${process.env.REACT_APP_USERS_URL}?skip=${page*5}&limit=${LIMIT_PAGE}`)
+      const { data } = await axios.get(`${process.env.REACT_APP_USERS_URL}?skip=${page*LIMIT_PAGE}&limit=${LIMIT_PAGE}`)
       setUsers(data)
     } catch (err) {
       console.log('KO::USERS', err)
@@ -68,10 +68,7 @@ const useUsers = () => {
   /** GET USERS */
   useEffect(() => {
     getUsers()
-    return () => {
-      getUsers()
-    }
-  })
+  }, [])
 
   return {
     users,

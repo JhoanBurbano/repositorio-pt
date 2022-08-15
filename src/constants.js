@@ -11,4 +11,4 @@ export const DEFAULT_ALERT = {
     type: 'info'
 }
 
-export const LIMIT_PAGE = 3
+export const LIMIT_PAGE = 4
