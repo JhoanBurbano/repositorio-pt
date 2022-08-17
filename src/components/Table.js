@@ -74,18 +74,15 @@ const TableData = ({ openEditModal, users, deleteUser, getUsers, total, loader }
           ))}
         </TableBody> }
       </Table>
-      <Box style={
-        {
-          display: 'flex',
-          justifyContent: 'center'
-        }
-      }>
+      <Box display={'flex'} justifyContent={'center'} >
       <Pagination 
       count={Math.ceil(total/LIMIT_PAGE)} 
       style={{
         margin: '0 auto'
       }}
       onChange={handleChange}
+      hidePrevButton
+      hideNextButton
       />
       </Box>
     </TableContainer>  : 
