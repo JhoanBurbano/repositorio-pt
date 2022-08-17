@@ -1,12 +1,10 @@
 import { TextField, Button } from "@mui/material";
 import { DEFAULT_VALUES } from "../constants";
 
-import useUsers from "../hooks/useUsers";
 import useFormStyles from "../styles/useFormFields";
 
-const Form2 = ({ setStep, register, handleSubmit, errors, reset, setAlert, setOpen }) => {
+const Form2 = ({ setStep, register, handleSubmit, errors, reset, setAlert, setOpen, createUser }) => {
   const classes = useFormStyles();
-  const { createUser } = useUsers();
 
   const onSubmit = async (user) => {
     try {

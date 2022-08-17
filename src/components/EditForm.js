@@ -5,13 +5,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 
 import useFormStyles from "../styles/useFormFields";
-import useUsers from "../hooks/useUsers";
 import { schema } from "../validators";
 import { DEFAULT_ALERT, DEFAULT_VALUES } from "../constants";
 
-const EditForm = ({ open, closeModal, user, setAlert, setOpen, setUser }) => {
+const EditForm = ({ open, closeModal, user, setAlert, setOpen, setUser, editUser }) => {
   const classes = useFormStyles();
-  const { editUser } = useUsers();
 
   async function onSubmit(_user) {
       Object.keys(user).forEach(
@@ -71,7 +69,7 @@ const EditForm = ({ open, closeModal, user, setAlert, setOpen, setUser }) => {
     Object.entries(DEFAULT_VALUES).forEach(([field, value]) => {
         setValue(field, user[field])
     })
-  }, [user, setValue])
+  }, [clearErrors, setValue, user])
 
   return(
     <Modal

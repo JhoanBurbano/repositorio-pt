@@ -10,9 +10,12 @@ import { LIMIT_PAGE } from '../constants'
 const useUsers = () => {
   const [users, setUsers] = useState([])
   const [page, setPage] = useState(0)
+  const [total, setTotal] = useState(0)
 
   const getUsers = useCallback(async () => {
     try {
+      const { data:cant } = await axios.get(process.env.REACT_APP_USERS_URL)
+      setTotal(cant.length)
       const { data } = await axios.get(`${process.env.REACT_APP_USERS_URL}?skip=${page*LIMIT_PAGE}&limit=${LIMIT_PAGE}`)
       setUsers(data)
     } catch (err) {
@@ -31,7 +34,6 @@ const useUsers = () => {
   }
 
   const editUser = async ({_id, ...user}) => {
-    console.log('_id :>> ', _id);
     try {
       if (Object.keys(user).length === 5) {
         const { data } = await axios.put(`${process.env.REACT_APP_USERS_URL}/${_id}`, user)
@@ -65,10 +67,9 @@ const useUsers = () => {
     }
   }
 
-  /** GET USERS */
   useEffect(() => {
     getUsers()
-  }, [])
+  },[])
 
   return {
     users,
@@ -76,6 +77,7 @@ const useUsers = () => {
     editUser,
     deleteUser,
     changePage,
+    total
   }
 }
 

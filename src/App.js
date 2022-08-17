@@ -19,6 +19,7 @@ import Form2 from "./components/Form2";
 import TableData from "./components/Table";
 import EditForm from "./components/EditForm";
 import { DEFAULT_ALERT, DEFAULT_VALUES } from "./constants";
+import useUsers from "./hooks/useUsers";
 
 const App = () => {
   const [step, setStep] = useState(0);
@@ -26,6 +27,7 @@ const App = () => {
   const [open, setOpen] = useState(false);
   const [openModal, setOpenModal] = useState(false)
   const [userEdit, setUserEdit] = useState(DEFAULT_VALUES)
+  const { users, deleteUser, changePage, createUser, editUser, total } = useUsers();
   const {
     register,
     formState: { errors },
@@ -59,6 +61,7 @@ const App = () => {
           reset={reset}
           setAlert={setAlert}
           setOpen={setOpen}
+          createUser={createUser}
         />
       ),
     },
@@ -102,7 +105,7 @@ const App = () => {
           </Box>
         </Grid>
         <Grid item md={8} sm={26} xs={26}>
-          <TableData openEditModal={openEditModal}/>
+          <TableData openEditModal={openEditModal} users={users} deleteUser={deleteUser} changePage={changePage} total={total} />
         </Grid>
       </Grid>
       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
@@ -110,7 +113,7 @@ const App = () => {
           {alert.message}
         </Alert>
       </Snackbar>
-      <EditForm open={openModal} closeModal={handleCloseModal} user={userEdit} setAlert={setAlert}  setOpen={setOpen} setUser={setUserEdit}/>
+      <EditForm open={openModal} closeModal={handleCloseModal} user={userEdit} setAlert={setAlert}  setOpen={setOpen} setUser={setUserEdit} editUser={editUser}/>
     </Container>
   );
 };

@@ -14,15 +14,19 @@ import {
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-import useUsers from "../hooks/useUsers";
 import { Box } from "@mui/system";
 import { LIMIT_PAGE } from "../constants";
+import { useEffect, useState } from "react";
 
-const TableData = ({ openEditModal }) => {
-  const { users, deleteUser, changePage, total } = useUsers();
+const TableData = ({ openEditModal, users, deleteUser, changePage, total }) => {
+  
   function handleChange (event, value) {
-    changePage(value - 1)
+    let page = value - 1
+    changePage(page)
   }
+
+
+
   return (
     <>
     {users.length ? <TableContainer component={Paper}>
@@ -76,7 +80,7 @@ const TableData = ({ openEditModal }) => {
         }
       }>
       <Pagination 
-      count={LIMIT_PAGE} 
+      count={Math.ceil(total/LIMIT_PAGE)} 
       style={{
         margin: '0 auto'
       }}
