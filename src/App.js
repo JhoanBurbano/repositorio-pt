@@ -25,9 +25,10 @@ const App = () => {
   const [step, setStep] = useState(0);
   const [alert, setAlert] = useState(DEFAULT_ALERT);
   const [open, setOpen] = useState(false);
+  const [loader, setloader] = useState(false);
   const [openModal, setOpenModal] = useState(false)
   const [userEdit, setUserEdit] = useState(DEFAULT_VALUES)
-  const { users, deleteUser, changePage, createUser, editUser, total } = useUsers();
+  const { users, deleteUser, createUser, editUser, total, getUsers } = useUsers(setloader);
   const {
     register,
     formState: { errors },
@@ -105,7 +106,7 @@ const App = () => {
           </Box>
         </Grid>
         <Grid item md={8} sm={26} xs={26}>
-          <TableData openEditModal={openEditModal} users={users} deleteUser={deleteUser} changePage={changePage} total={total} />
+          <TableData openEditModal={openEditModal} users={users} deleteUser={deleteUser} getUsers={getUsers} total={total} loader={loader} />
         </Grid>
       </Grid>
       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>

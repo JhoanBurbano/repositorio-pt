@@ -8,7 +8,8 @@ import {
   Paper,
   Button,
   Pagination,
-  Skeleton
+  Skeleton,
+  LinearProgress
 } from "@mui/material";
 
 import EditIcon from '@mui/icons-material/Edit';
@@ -18,18 +19,18 @@ import { Box } from "@mui/system";
 import { LIMIT_PAGE } from "../constants";
 import { useEffect, useState } from "react";
 
-const TableData = ({ openEditModal, users, deleteUser, changePage, total }) => {
+const TableData = ({ openEditModal, users, deleteUser, getUsers, total, loader }) => {
   
-  function handleChange (event, value) {
+  const handleChange = async (event, value) => {
     let page = value - 1
-    changePage(page)
+    await getUsers(page)
   }
 
 
 
   return (
     <>
-    {users.length ? <TableContainer component={Paper}>
+    {users.length && !loader ? <TableContainer component={Paper}>
       <Table>
         <TableHead>
           <TableRow>
@@ -90,16 +91,28 @@ const TableData = ({ openEditModal, users, deleteUser, changePage, total }) => {
     </TableContainer>  : 
           (
             <>
-            <Skeleton variant="rectangular" />
+            <LinearProgress/>
+            <Skeleton animation="wave" height={40} variant="rectangular" />
             <br/>
-            <Skeleton variant="rectangular" />
+            <Skeleton animation="wave" height={40} variant="rectangular" />
             <br/>
-            <Skeleton variant="rectangular" />
+            <Skeleton animation="wave" height={40} variant="rectangular" />
             <br/>
-            <Skeleton variant="rectangular" />
+            <Skeleton animation="wave" height={40} variant="rectangular" />
             <br/>
-            <Skeleton variant="rectangular" />
+            <Skeleton animation="wave" height={40} variant="rectangular" />
             <br/>
+            <Skeleton animation="wave" height={40} variant="rectangular" />
+            <br/>
+            <Skeleton animation="wave" height={40} variant="rectangular" />
+            <br/>
+            <Skeleton animation="wave" height={40} variant="rectangular" />
+            <br/>
+            <Skeleton animation="wave" height={40} variant="rectangular" />
+            <br/>
+            <Skeleton animation="wave" height={40} variant="rectangular" />
+            <br/>
+            <Skeleton animation="wave" height={40} variant="rectangular" />
             </>
           )}
     </>

@@ -7,17 +7,20 @@ import {
 import axios from 'axios'
 import { LIMIT_PAGE } from '../constants'
 
-const useUsers = () => {
+const useUsers = (setloader) => {
   const [users, setUsers] = useState([])
   const [page, setPage] = useState(0)
   const [total, setTotal] = useState(0)
 
-  const getUsers = useCallback(async () => {
+  const getUsers = useCallback(async (_page) => {
     try {
+      setloader(true)
+      setPage(page)
       const { data:cant } = await axios.get(process.env.REACT_APP_USERS_URL)
       setTotal(cant.length)
-      const { data } = await axios.get(`${process.env.REACT_APP_USERS_URL}?skip=${page*LIMIT_PAGE}&limit=${LIMIT_PAGE}`)
+      const { data } = await axios.get(`${process.env.REACT_APP_USERS_URL}?skip=${(_page || page)*LIMIT_PAGE}&limit=${LIMIT_PAGE}`)
       setUsers(data)
+      setloader(false)
     } catch (err) {
       console.log('KO::USERS', err)
     }
@@ -58,15 +61,6 @@ const useUsers = () => {
     }
   }
 
-  const changePage = async (value) => {
-    setPage(value)
-    try {
-      getUsers()
-    } catch (err) {
-      console.log('KO::USERS', err)
-    }
-  }
-
   useEffect(() => {
     getUsers()
   },[])
@@ -76,7 +70,7 @@ const useUsers = () => {
     createUser,
     editUser,
     deleteUser,
-    changePage,
+    getUsers,
     total
   }
 }
